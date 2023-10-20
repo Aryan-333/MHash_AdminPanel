@@ -17,7 +17,8 @@ import MiniCalendar from "components/calendar/MiniCalendar";
 import MiniStatistics from "components/card/MiniStatistics";
 // import HSeparator from "../../../components/separator/HSeparator";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   MdAddTask,
   MdAttachMoney,
@@ -42,6 +43,27 @@ import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
 
 export default function UserReports() {
+  const [totalPoints, setTotalPoints] = useState(0);
+
+  useEffect(() => {
+    fetch("http://manipal-hackathon-2.onrender.com/api/user/globalLeaderboard")
+      .then((response) => response.json())
+      .then((data) => {
+        if (
+          data.globalLeaderboard &&
+          data.globalLeaderboard[0] &&
+          data.globalLeaderboard[0].profile
+        ) {
+          setTotalPoints(
+            data.globalLeaderboard[1].profile.progress.totalPoints
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching totalPoints:", error);
+      });
+  }, []);
+
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -78,7 +100,7 @@ export default function UserReports() {
             />
           }
           name="Total Green Points"
-          value="64200"
+          value={totalPoints}
         />
         <MiniStatistics growth="+23%" name="Growth this month" value="5666" />
         <MiniStatistics

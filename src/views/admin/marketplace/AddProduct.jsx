@@ -180,6 +180,21 @@ function AddProductPage(props) {
                       />
                     </FormControl>
 
+                    <Flex direction="column" maxWidth="600px" margin="0 auto">
+                    <FormControl mb={4}>
+                      <FormLabel>Product Description</FormLabel>
+                      <Input
+                        placeholder="Enter Description"
+                        size="md"
+                        boxShadow="sm"
+                        _hover={{ boxShadow: "md" }}
+                        _focus={{ boxShadow: "lg" }}
+                        padding="10px"
+                        maxWidth="100%"
+                        width="400px"
+                      />
+                    </FormControl>
+
                     <FormControl mb={4}>
                       <FormLabel>Image</FormLabel>
                       <Input
